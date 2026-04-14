@@ -14,7 +14,7 @@ class LogoutUser extends BaseAction
 
             $user = User::query()
                 ->where('id', $userId)
-                ->first(['id', 'email', 'first_name', 'last_name']);
+                ->first(['id', 'email', 'name']);
 
             if (is_null($user)) {
                 return $this->errorResponse('Unknown user', 400);
