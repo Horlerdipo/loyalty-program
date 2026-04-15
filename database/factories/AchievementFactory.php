@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Enums\AchievementType;
 use App\Models\Achievement;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -18,7 +19,9 @@ class AchievementFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'name' => fake()->name,
+            'type' => fake()->randomElement(AchievementType::cases()),
+            'threshold' => fake()->randomNumber(strict: true)
         ];
     }
 }
