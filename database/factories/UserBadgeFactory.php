@@ -22,6 +22,8 @@ class UserBadgeFactory extends Factory
         return [
             'user_id' => User::factory()->create()->id,
             'badge_id' => Badge::factory()->create()->id,
+            'cashback_paid' => fake()->boolean(),
+            'cashback_amount' => fake()->numberBetween(1, 1000)
         ];
     }
 }

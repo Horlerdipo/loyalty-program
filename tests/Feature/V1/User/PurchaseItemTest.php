@@ -1,14 +1,16 @@
 <?php
 
+use App\Events\ItemPurchased;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Event;
 use Tests\TestCase;
 
 uses(TestCase::class, RefreshDatabase::class);
 beforeEach(function () {
     $this->user = User::factory()->create();
     $this->amount = 20_000;
-
+    Event::fake();
 });
 
 it('purchases an item successfully', function () {
@@ -26,6 +28,8 @@ it('purchases an item successfully', function () {
         'email' => $this->user->email,
         'amount' => $this->amount,
     ]);
+
+    Event::assertDispatched(ItemPurchased::class);
 });
 
 it('returns unauthenticated error when no user is attached', function () {

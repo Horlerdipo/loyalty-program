@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+/**
+ * @mixin IdeHelperUserBadge
+ */
 class UserBadge extends Model
 {
     /** @use HasFactory<UserBadgeFactory> */
@@ -15,11 +18,13 @@ class UserBadge extends Model
     protected $fillable = [
         'user_id',
         'badge_id',
-        'cashback_paid'
+        'cashback_paid',
+        'cashback_amount',
     ];
 
     protected $casts = [
-        'cashback_paid' => 'float'
+        'cashback_paid' => 'boolean',
+        'cashback_amount' => 'float'
     ];
 
     /**

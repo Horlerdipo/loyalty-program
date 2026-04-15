@@ -65,9 +65,10 @@ namespace App\Models{
  * @property string $identifier
  * @property int $user_id
  * @property string $email
- * @property numeric $amount
+ * @property float $amount
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\User $user
  * @method static \Database\Factories\PurchaseFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Purchase newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Purchase newQuery()
@@ -95,6 +96,10 @@ namespace App\Models{
  * @property string|null $remember_token
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Achievement> $achievements
+ * @property-read int|null $achievements_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Badge> $badges
+ * @property-read int|null $badges_count
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
  * @property-read int|null $notifications_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Purchase> $purchases
@@ -117,5 +122,57 @@ namespace App\Models{
  */
 	#[\AllowDynamicProperties]
 	class IdeHelperUser {}
+}
+
+namespace App\Models{
+/**
+ * @property int $id
+ * @property int $achievement_id
+ * @property int $user_id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Achievement $achievement
+ * @property-read \App\Models\User $user
+ * @method static \Database\Factories\UserAchievementFactory factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|UserAchievement newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|UserAchievement newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|UserAchievement query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|UserAchievement whereAchievementId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|UserAchievement whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|UserAchievement whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|UserAchievement whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|UserAchievement whereUserId($value)
+ * @mixin \Eloquent
+ */
+	#[\AllowDynamicProperties]
+	class IdeHelperUserAchievement {}
+}
+
+namespace App\Models{
+/**
+ * @property int $id
+ * @property int $badge_id
+ * @property int $user_id
+ * @property bool $cashback_paid
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property float $cashback_amount
+ * @property-read \App\Models\Badge $badge
+ * @property-read \App\Models\User $user
+ * @method static \Database\Factories\UserBadgeFactory factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|UserBadge newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|UserBadge newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|UserBadge query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|UserBadge whereBadgeId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|UserBadge whereCashbackAmount($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|UserBadge whereCashbackPaid($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|UserBadge whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|UserBadge whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|UserBadge whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|UserBadge whereUserId($value)
+ * @mixin \Eloquent
+ */
+	#[\AllowDynamicProperties]
+	class IdeHelperUserBadge {}
 }
 

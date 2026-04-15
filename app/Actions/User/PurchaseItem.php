@@ -4,6 +4,7 @@ namespace App\Actions\User;
 
 use App\Actions\BaseAction;
 use App\DTOs\BaseResponseDto;
+use App\Events\ItemPurchased;
 use App\Models\User;
 use Illuminate\Support\Str;
 
@@ -22,11 +23,13 @@ class PurchaseItem extends BaseAction
             }
 
             $identifier = Str::uuid();
-            $user->purchases()->create([
+            $purchase = $user->purchases()->create([
                 'identifier' => $identifier,
                 'email' => $user->email,
                 'amount' => $amount,
             ]);
+
+            ItemPurchased::dispatch($purchase);
 
             return $this->successResponse('Item purchased successfully', [
                 'identifier' => $identifier,

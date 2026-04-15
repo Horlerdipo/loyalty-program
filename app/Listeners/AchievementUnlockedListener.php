@@ -2,6 +2,7 @@
 
 namespace App\Listeners;
 
+use App\Actions\User\UnlockBadges;
 use App\Events\AchievementUnlocked;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
@@ -15,7 +16,6 @@ class AchievementUnlockedListener implements ShouldQueue
      */
     public function __construct()
     {
-        //
     }
 
     /**
@@ -23,6 +23,6 @@ class AchievementUnlockedListener implements ShouldQueue
      */
     public function handle(AchievementUnlocked $event): void
     {
-        //
+        (new UnlockBadges())->execute($event->user);
     }
 }
