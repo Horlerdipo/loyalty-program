@@ -7,6 +7,9 @@ use Database\Factories\BadgeFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @mixin IdeHelperBadge
+ */
 class Badge extends Model
 {
     /** @use HasFactory<BadgeFactory> */

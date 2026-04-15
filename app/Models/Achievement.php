@@ -7,6 +7,9 @@ use Database\Factories\AchievementFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @mixin IdeHelperAchievement
+ */
 class Achievement extends Model
 {
     /** @use HasFactory<AchievementFactory> */
