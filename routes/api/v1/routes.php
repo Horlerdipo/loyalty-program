@@ -32,7 +32,6 @@ Route::prefix('auth')->as('auth:')->group(function () {
     });
 });
 
-
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('purchase', PurchaseItemController::class)->name('purchase');
 });

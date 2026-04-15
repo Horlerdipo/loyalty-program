@@ -21,7 +21,7 @@ class AchievementFactory extends Factory
         return [
             'name' => fake()->name,
             'type' => fake()->randomElement(AchievementType::cases()),
-            'threshold' => fake()->randomNumber(strict: true)
+            'threshold' => fake()->randomNumber(strict: true),
         ];
     }
 }

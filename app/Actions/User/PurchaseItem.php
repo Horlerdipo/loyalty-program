@@ -29,7 +29,7 @@ class PurchaseItem extends BaseAction
             ]);
 
             return $this->successResponse('Item purchased successfully', [
-                'identifier' => $identifier
+                'identifier' => $identifier,
             ]);
         } catch (\Exception $exception) {
             return $this->handleException($exception);

@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests\V1\User\Auth;
 
-use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rules\Password;
 

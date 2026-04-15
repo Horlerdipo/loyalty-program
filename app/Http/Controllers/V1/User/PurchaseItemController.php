@@ -14,7 +14,7 @@ class PurchaseItemController extends Controller
     {
         $validatedReq = $request->validate($this->validations());
 
-        $actionResponse = (new PurchaseItem())->execute(strval(Auth::id()), floatval($validatedReq['amount']));
+        $actionResponse = (new PurchaseItem)->execute(strval(Auth::id()), floatval($validatedReq['amount']));
 
         if (! $actionResponse->status) {
             return $this->errorResponse($actionResponse);

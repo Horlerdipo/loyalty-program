@@ -10,7 +10,6 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class BadgeFactory extends Factory
 {
-
     private static int $order = 1;
 
     /**

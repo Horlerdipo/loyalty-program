@@ -2,7 +2,6 @@
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\Event;
 use Tests\TestCase;
 
 uses(TestCase::class, RefreshDatabase::class);
@@ -16,7 +15,7 @@ it('purchases an item successfully', function () {
 
     $response = $this->actingAs($this->user, 'sanctum')
         ->postJson('/api/v1/purchase', [
-            'amount' => $this->amount
+            'amount' => $this->amount,
         ]);
 
     expect($response)->assertStatus(200)
@@ -31,14 +30,14 @@ it('purchases an item successfully', function () {
 
 it('returns unauthenticated error when no user is attached', function () {
     $response = $this->postJson('/api/v1/purchase', [
-        'amount' => $this->amount
+        'amount' => $this->amount,
     ]);
     expect($response)->assertStatus(401);
 });
 
 it('returns validation error when no amount is provided', function () {
     $response = $this->actingAs($this->user, 'sanctum')
-    ->postJson('/api/v1/purchase');
+        ->postJson('/api/v1/purchase');
 
     expect($response)->assertJsonValidationErrors(['amount']);
     $this->assertDatabaseMissing('purchases', [
@@ -50,7 +49,7 @@ it('returns validation error when no amount is provided', function () {
 it('returns validation error when no amount is not numeric', function () {
     $response = $this->actingAs($this->user, 'sanctum')
         ->postJson('/api/v1/purchase', [
-            'amount' => 'string'
+            'amount' => 'string',
         ]);
 
     expect($response)->assertJsonValidationErrors(['amount']);
@@ -63,7 +62,7 @@ it('returns validation error when no amount is not numeric', function () {
 it('returns validation error when no amount is less than 1', function () {
     $response = $this->actingAs($this->user, 'sanctum')
         ->postJson('/api/v1/purchase', [
-            'amount' => 0.116
+            'amount' => 0.116,
         ]);
 
     expect($response)->assertJsonValidationErrors(['amount']);

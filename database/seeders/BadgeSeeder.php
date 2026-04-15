@@ -15,10 +15,10 @@ class BadgeSeeder extends Seeder
     public function run(): void
     {
         $allBadges = Badge::all();
-        $badges = array_map(fn(BadgeName $badge) => [
-            'name'           => $badge->value,
+        $badges = array_map(fn (BadgeName $badge) => [
+            'name' => $badge->value,
             'required_count' => $badge->requiredCount(),
-            'order'          => $badge->order(),
+            'order' => $badge->order(),
         ], BadgeName::cases());
 
         $badges = collect($badges)->reject(function ($badge) use ($allBadges) {

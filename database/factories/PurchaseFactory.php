@@ -19,11 +19,12 @@ class PurchaseFactory extends Factory
     public function definition(): array
     {
         $user = User::factory()->create();
+
         return [
             'identifier' => fake()->uuid(),
             'user_id' => $user->id,
             'email' => $user->email,
-            'amount' => fake()->numberBetween(100, 150_000)
+            'amount' => fake()->numberBetween(100, 150_000),
         ];
     }
 }
