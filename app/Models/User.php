@@ -42,4 +42,20 @@ class User extends Authenticatable
     {
         return $this->hasMany(Purchase::class);
     }
+
+    /**
+     * @return HasMany<Badge, $this>
+     */
+    public function badges(): HasMany
+    {
+        return $this->hasMany(Badge::class);
+    }
+
+    /**
+     * @return HasMany<Achievement, $this>
+     */
+    public function achievements(): HasMany
+    {
+        return $this->hasMany(Achievement::class);
+    }
 }

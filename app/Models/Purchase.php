@@ -19,4 +19,8 @@ class Purchase extends Model
         'email',
         'amount',
     ];
+
+    protected $casts = [
+        'amount' => 'float'
+    ];
 }
