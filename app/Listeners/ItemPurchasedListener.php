@@ -8,7 +8,6 @@ use App\Models\Purchase;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Facades\Config;
-use function PHPUnit\Framework\isFalse;
 
 class ItemPurchasedListener implements ShouldQueue
 {
@@ -27,7 +26,7 @@ class ItemPurchasedListener implements ShouldQueue
      */
     public function handle(ItemPurchased $event): void
     {
-        if (!Config::boolean('app.loyalty_program.active')) {
+        if (! Config::boolean('app.loyalty_program.active')) {
             return;
         }
 
@@ -39,10 +38,10 @@ class ItemPurchasedListener implements ShouldQueue
             ->where('user_id', $event->purchase->user_id)
             ->count();
 
-        if(is_null($event->purchase->user)) {
+        if (is_null($event->purchase->user)) {
             return;
         }
 
-        (new UnlockAchievements())->execute($event->purchase->user, $totalSales, floatval($totalRevenue));
+        (new UnlockAchievements)->execute($event->purchase->user, $totalSales, floatval($totalRevenue));
     }
 }

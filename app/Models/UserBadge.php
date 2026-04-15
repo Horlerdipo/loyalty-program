@@ -24,7 +24,7 @@ class UserBadge extends Model
 
     protected $casts = [
         'cashback_paid' => 'boolean',
-        'cashback_amount' => 'float'
+        'cashback_amount' => 'float',
     ];
 
     /**

@@ -14,15 +14,13 @@ class AchievementUnlockedListener implements ShouldQueue
     /**
      * Create the event listener.
      */
-    public function __construct()
-    {
-    }
+    public function __construct() {}
 
     /**
      * Handle the event.
      */
     public function handle(AchievementUnlocked $event): void
     {
-        (new UnlockBadges())->execute($event->user);
+        (new UnlockBadges)->execute($event->user);
     }
 }

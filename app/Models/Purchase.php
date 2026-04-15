@@ -23,7 +23,7 @@ class Purchase extends Model
     ];
 
     protected $casts = [
-        'amount' => 'float'
+        'amount' => 'float',
     ];
 
     /**

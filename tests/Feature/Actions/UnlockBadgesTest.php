@@ -1,14 +1,11 @@
 <?php
 
-use App\Actions\User\UnlockAchievements;
 use App\Actions\User\UnlockBadges;
 use App\Enums\BadgeName;
-use App\Events\AchievementUnlocked;
 use App\Events\BadgeUnlocked;
 use App\Models\Achievement;
 use App\Models\Badge;
 use App\Models\User;
-use App\Models\UserAchievement;
 use App\Models\UserBadge;
 use Database\Seeders\AchievementSeeder;
 use Database\Seeders\BadgeSeeder;
@@ -22,7 +19,7 @@ uses(TestCase::class, RefreshDatabase::class);
 
 beforeEach(function () {
     $this->seed([AchievementSeeder::class, BadgeSeeder::class]);
-    $this->action = new UnlockBadges();
+    $this->action = new UnlockBadges;
     $this->user = User::factory()->create();
     Config::set('app.loyalty_program.cashback_paid_per_badge', 5.00);
     Event::fake();
@@ -38,7 +35,7 @@ function giveAchievements(User $user, int $count): void
             'user_id' => $user->id,
             'achievement_id' => $achievement,
             'created_at' => $now,
-            'updated_at' => $now
+            'updated_at' => $now,
         ];
     }
     $user->achievements()->createMany($input);
@@ -162,7 +159,7 @@ describe('unlocking badges', function () {
                 ->count()
         )->toBe(1);
 
-        $this->assertDatabaseCount('user_badges', 2); //both Bronze and Starter should exist in the db
+        $this->assertDatabaseCount('user_badges', 2); // both Bronze and Starter should exist in the db
     });
 });
 
@@ -210,7 +207,7 @@ describe('dispatched events', function () {
 
         Event::assertDispatched(BadgeUnlocked::class,
             fn ($event) => $event->userBadge->badge_id === $starterBadgeId
-                && $event->userBadge->user_id  === $this->user->id
+                && $event->userBadge->user_id === $this->user->id
         );
     });
 
