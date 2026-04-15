@@ -1,58 +1,182 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Loyalty Program Implementation
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+This project is a full-stack feature for an e-commerce loyalty program where customers unlock achievements and earn badges based on their purchase history. It was built as part of a Mid-Level Full-Stack Engineer assessment.
 
-## About Laravel
+## Overview
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+The loyalty program tracks user purchases and automatically unlocks relevant achievements and badges. When a user reaches specific milestones, events are fired to trigger rewards, such as cashback payments.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+---
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Features
 
-## Learning Laravel
+- Achievement tracking based on total number of sales.
+- Achievement tracking based on total revenue generated.
+- Badge progression system tied to the number of unlocked achievements.
+- Automated event-driven rewards (Cashback system).
+- RESTful API for fetching user loyalty progress and history.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+---
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Technologies Used
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+- Core: PHP 8.3 / Laravel 13
+- Database: SQLite
+- Authentication: Laravel Sanctum
+- Testing: Pest PHP
+- Architecture: Action-DTO Pattern, Event-Driven Design
 
-## Agentic Development
+---
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+## Architecture and Design Patterns
 
+### 1. Action-DTO Pattern
+To maintain thin controllers and reusable logic, the project utilizes the Action pattern. Business logic is encapsulated within dedicated Action classes (e.g., UnlockAchievements, UnlockBadges), while Data Transfer Objects (DTOs) ensure a consistent and type-safe API response structure.
+
+### 2. Event-Driven Architecture
+The system is decoupled using Laravel's event system:
+- ItemPurchased: Fired when a purchase is recorded.
+- AchievementUnlocked: Fired when a user meets an achievement threshold.
+- BadgeUnlocked: Fired when a user earns a new badge, triggering the cashback listener.
+
+### 3. Background Processing
+Listeners responsible for achievement and badge checks implement ShouldQueue, ensuring that the purchase flow remains fast and responsive while heavy calculations happen in the background.
+
+---
+
+## Setup Instructions
+
+This project is fully dockerized for easy setup and development.
+
+### Docker Installation (Recommended)
+
+#### Prerequisites
+- Docker
+- Docker Compose
+
+#### Installation and Running
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/horlerdipo/loyalty-reward
+   cd loyalty-program
+   ```
+
+2. Environment configuration:
+   ```bash
+   cp .env.example .env
+   # Open .env and set your preferred APP_PORT (default is 8000)
+   ```
+
+3. Build and start the containers:
+   ```bash
+   docker-compose up -d --build
+   ```
+
+4. The application handles migrations and seeding automatically upon startup. You can access the API at `http://localhost:8000` (or your configured `APP_PORT`).
+
+#### Running Tests with Docker
 ```bash
-composer require laravel/boost --dev
-
-php artisan boost:install
+docker exec -it loyalty_backend php artisan test
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+---
 
-## Contributing
+### Local Installation (Without Docker)
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+#### Prerequisites
+- PHP 8.2 or higher
+- Composer
+- SQLite
 
-## Code of Conduct
+#### Installation
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+1. Clone and install dependencies:
+   ```bash
+   git clone https://github.com/horlerdipo/loyalty-reward
+   cd loyalty-program
+   composer install
+   ```
 
-## Security Vulnerabilities
+2. Environment configuration:
+   ```bash
+   cp .env.example .env
+   php artisan key:generate
+   ```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+3. Database Setup:
+   ```bash
+   touch database/database.sqlite
+   php artisan migrate
+   php artisan db:seed --class=AchievementSeeder
+   php artisan db:seed --class=BadgeSeeder
+   ```
+
+4. Start the application:
+   ```bash
+   php artisan serve
+   ```
+
+---
+
+## API Documentation
+
+The project includes a Postman collection (`Loyalty Program.postman_collection.json`) for detailed endpoint testing.
+
+### Authentication
+Most endpoints require a Bearer Token obtained via the login or register endpoints.
+
+- POST /api/auth/register: Create a new user account.
+- POST /api/auth/login: Authenticate and receive an API token.
+
+### Loyalty Endpoints
+- GET /api/users/{user}/achievements: Returns the user's unlocked achievements, next available milestones, current badge, and progress toward the next badge.
+- POST /api/purchase: Simulate a purchase to trigger the loyalty logic.
+
+---
+
+## Achievements and Badges
+
+### Achievements
+Achievements are split into two tracks:
+1. Sales Track: Unlocked based on the total count of items purchased.
+2. Revenue Track: Unlocked based on the total amount spent (thresholds: 1k, 5k, 10k, etc.).
+
+### Badges
+Badges are awarded based on the total number of achievements unlocked:
+- Starter: 1 Achievement
+- Bronze: 3 Achievements
+- Silver: 6 Achievements
+- Gold: 9 Achievements
+- Platinum: 12 Achievements
+- Sapphire: 15 Achievements
+- Ruby: 18 Achievements
+- Emerald: 21 Achievements
+- Diamond: 24 Achievements
+- Legend: 27 Achievements
+
+### Rewards
+Every time a BadgeUnlocked event is fired, a cashback of 300 Naira is automatically logged for the user and marked as paid in the database.
+
+---
+
+## Testing
+
+The project uses Pest for feature and unit testing.
+
+To run the test suite:
+```bash
+php artisan test
+```
+
+Key test areas include:
+- Achievement unlocking logic.
+- Badge progression accuracy.
+- API response structure and authentication.
+- Event dispatching verification.
+
+---
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+This project is open-sourced software licensed under the MIT license.
