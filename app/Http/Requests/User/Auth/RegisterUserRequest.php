@@ -4,7 +4,6 @@ namespace App\Http\Requests\User\Auth;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rules\Password;
-use Mockery\Generator\StringManipulation\Pass\Pass;
 
 class RegisterUserRequest extends FormRequest
 {

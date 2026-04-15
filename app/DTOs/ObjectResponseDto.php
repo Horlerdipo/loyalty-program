@@ -8,10 +8,7 @@ namespace App\DTOs;
 readonly class ObjectResponseDto
 {
     /**
-     * @param bool $status
-     * @param int $statusCode
-     * @param string $message
-     * @param T $data
+     * @param  T  $data
      */
     public function __construct(
         public bool $status,
