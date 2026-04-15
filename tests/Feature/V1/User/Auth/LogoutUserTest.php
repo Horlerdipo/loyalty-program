@@ -2,21 +2,21 @@
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\Event;
+use Tests\TestCase;
 
-uses(\Tests\TestCase::class, RefreshDatabase::class);
+uses(TestCase::class, RefreshDatabase::class);
 beforeEach(function () {
     $this->user = User::factory()->create();
 });
 
 it('logs out successfully', function () {
     $response = $this->actingAs($this->user, 'sanctum')
-        ->postJson('/api/v1/auth/logout');
+        ->postJson('/api/auth/logout');
 
     expect($response)->assertStatus(204);
 });
 
 it('returns an error when the user is not logged in', function () {
-    $response = $this->postJson('/api/v1/auth/logout');
+    $response = $this->postJson('/api/auth/logout');
     expect($response)->assertStatus(401);
 });

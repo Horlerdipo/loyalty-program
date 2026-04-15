@@ -1,0 +1,29 @@
+<?php
+
+namespace Database\Factories;
+
+use App\Models\Badge;
+use App\Models\User;
+use App\Models\UserBadge;
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+/**
+ * @extends Factory<UserBadge>
+ */
+class UserBadgeFactory extends Factory
+{
+    /**
+     * Define the model's default state.
+     *
+     * @return array<string, mixed>
+     */
+    public function definition(): array
+    {
+        return [
+            'user_id' => User::factory()->create()->id,
+            'badge_id' => Badge::factory()->create()->id,
+            'cashback_paid' => fake()->boolean(),
+            'cashback_amount' => fake()->numberBetween(1, 1000),
+        ];
+    }
+}

@@ -22,7 +22,7 @@ return new class extends Migration
     }
 
     public function down(): void
-        {
-            Schema::dropIfExists(config('simple-otp.table_name'));
-        }
+    {
+        Schema::dropIfExists(config('simple-otp.table_name'));
+    }
 };

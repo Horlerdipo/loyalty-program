@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\V1\User\Auth;
+namespace App\Http\Controllers\User\Auth;
 
 use App\Actions\User\Auth\RegisterUser;
 use App\DTOs\User\Auth\RegisterUserDto;
 use App\Exceptions\DtoValidationErrorException;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\V1\User\Auth\RegisterUserRequest;
+use App\Http\Requests\User\Auth\RegisterUserRequest;
 use Symfony\Component\HttpFoundation\Response;
 
 class RegisterUserController extends Controller

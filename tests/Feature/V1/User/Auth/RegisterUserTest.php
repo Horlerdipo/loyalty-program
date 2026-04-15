@@ -2,7 +2,6 @@
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\Event;
 use Tests\TestCase;
 
 uses(TestCase::class, RefreshDatabase::class);
@@ -23,7 +22,7 @@ it('registers a user successfully', function () {
     ];
 
     // Act:
-    $response = $this->postJson('/api/v1/auth/register', $payload);
+    $response = $this->postJson('/api/auth/register', $payload);
     expect($response)->assertStatus(204);
 
     $this->assertDatabaseHas('users', [
@@ -39,7 +38,7 @@ it('returns an error when the data is invalid', function () {
     ];
 
     // Act:
-    $response = $this->postJson('/api/v1/auth/register', $user);
+    $response = $this->postJson('/api/auth/register', $user);
 
     // Assert:
     expect($response)->assertJsonValidationErrors(['name', 'email', 'password']);
@@ -62,7 +61,7 @@ it('prevents registering with an existing email', function () {
     ];
 
     // Act:
-    $response = $this->postJson('/api/v1/auth/register', $user);
+    $response = $this->postJson('/api/auth/register', $user);
 
     // Assert:
     expect($response)->assertJsonValidationErrors(['email']);

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\V1\User\Auth;
+namespace App\Http\Controllers\User\Auth;
 
 use App\Actions\User\Auth\LogoutUser;
 use App\Http\Controllers\Controller;

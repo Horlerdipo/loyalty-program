@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\V1\User\Auth;
+namespace App\Http\Requests\User\Auth;
 
-use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rules\Password;
+use Mockery\Generator\StringManipulation\Pass\Pass;
 
 class RegisterUserRequest extends FormRequest
 {
@@ -17,8 +17,6 @@ class RegisterUserRequest extends FormRequest
     }
 
     /**
-     * Get the validation rules that apply to the request.
-     *
      * @return array<string, array<int, string|Password>>
      */
     public function rules(): array
