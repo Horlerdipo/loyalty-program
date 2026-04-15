@@ -4,7 +4,6 @@ namespace App\Http\Controllers\User;
 
 use App\Actions\User\FetchLoyaltyRewardDetails;
 use App\DTOs\BaseResponseDto;
-use App\DTOs\User\LoyaltyRewardDetailsDto;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -14,7 +13,7 @@ class FetchLoyaltyRewardDetailsController extends Controller
 {
     public function __invoke(Request $request): JsonResponse
     {
-        $actionResponse = (new FetchLoyaltyRewardDetails())->execute(strval(Auth::guard('sanctum')->id()));
+        $actionResponse = (new FetchLoyaltyRewardDetails)->execute(strval(Auth::guard('sanctum')->id()));
 
         if ($actionResponse instanceof BaseResponseDto) {
             return $this->errorResponse($actionResponse);

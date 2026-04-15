@@ -57,6 +57,7 @@ class UnlockAchievements extends BaseAction
 
             if (empty($newAchievements)) {
                 Log::info('No new achievements unlocked');
+
                 return $this->successResponse('No new achievements unlocked');
             }
 

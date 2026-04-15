@@ -2,17 +2,11 @@
 
 namespace App\DTOs\User;
 
-use App\DTOs\ValidatedDto;
-use App\Exceptions\DtoValidationErrorException;
-
 readonly class LoyaltyRewardDetailsDto
 {
     /**
-     * @param string[] $unlockedAchievements
-     * @param string[] $nextAvailableAchievements
-     * @param string|null $currentBadge
-     * @param string|null $nextBadge
-     * @param int $remainingToUnlockNextBadge
+     * @param  string[]  $unlockedAchievements
+     * @param  string[]  $nextAvailableAchievements
      */
     public function __construct(
         public array $unlockedAchievements,
@@ -32,7 +26,7 @@ readonly class LoyaltyRewardDetailsDto
             'next_available_achievements' => $this->nextAvailableAchievements,
             'current_badge' => $this->currentBadge,
             'next_badge' => $this->nextBadge,
-            'remaining_to_unlock_next_badge' => $this->remainingToUnlockNextBadge
+            'remaining_to_unlock_next_badge' => $this->remainingToUnlockNextBadge,
         ];
     }
 }

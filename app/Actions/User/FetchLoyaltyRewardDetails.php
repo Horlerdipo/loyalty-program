@@ -6,20 +6,13 @@ use App\Actions\BaseAction;
 use App\DTOs\BaseResponseDto;
 use App\DTOs\ObjectResponseDto;
 use App\DTOs\User\LoyaltyRewardDetailsDto;
-use App\Events\BadgeUnlocked;
 use App\Models\Achievement;
 use App\Models\Badge;
 use App\Models\User;
-use App\Models\UserBadge;
-use Illuminate\Contracts\Auth\Authenticatable;
-use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\DB;
-use stdClass;
 
 class FetchLoyaltyRewardDetails extends BaseAction
 {
     /**
-     * @param string $userId
      * @return ObjectResponseDto<LoyaltyRewardDetailsDto>|BaseResponseDto
      */
     public function execute(string $userId): ObjectResponseDto|BaseResponseDto
@@ -48,11 +41,11 @@ class FetchLoyaltyRewardDetails extends BaseAction
             $allBadges = Badge::query()->orderBy('required_count')->get();
 
             $currentBadge = $allBadges
-                ->filter(fn($badge) => $earnedBadgeIds->contains($badge->id))
+                ->filter(fn ($badge) => $earnedBadgeIds->contains($badge->id))
                 ->last();
 
             $nextBadge = $allBadges
-                ->filter(fn($badge) => $badge->required_count > $earnedCount)
+                ->filter(fn ($badge) => $badge->required_count > $earnedCount)
                 ->first();
 
             return $this->objectResponse(
