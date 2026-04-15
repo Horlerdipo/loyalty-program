@@ -28,5 +28,9 @@ class BadgeUnlockedListener implements ShouldQueue
         Log::info("Badge {$event->userBadge->badge?->name->name} successfully unlocked at $now for user {$event->userBadge->user?->name} and {$event->userBadge->cashback_amount} paid successfully", [
             'user_badge_id' => $event->userBadge->id
         ]);
+
+        $event->userBadge->update([
+            'cashback_paid' => true,
+        ]);
     }
 }

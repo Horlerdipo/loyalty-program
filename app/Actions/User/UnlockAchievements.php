@@ -18,6 +18,7 @@ class UnlockAchievements extends BaseAction
     public function execute(User $user, int $totalSales, float $totalRevenue): BaseResponseDto
     {
         try {
+
             //fetch earned achievements
             $earnedAchievementIds = $user->achievements()
                 ->join('achievements', 'achievements.id', '=', 'user_achievements.achievement_id')
