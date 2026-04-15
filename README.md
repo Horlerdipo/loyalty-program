@@ -46,12 +46,15 @@ Listeners responsible for achievement and badge checks implement ShouldQueue, en
 
 ## Setup Instructions
 
-### Prerequisites
-- PHP 8.2 or higher
-- Composer
-- MySQL or SQLite
+This project is fully dockerized for easy setup and development.
 
-### Installation
+### Docker Installation (Recommended)
+
+#### Prerequisites
+- Docker
+- Docker Compose
+
+#### Installation and Running
 
 1. Clone the repository:
    ```bash
@@ -59,18 +62,49 @@ Listeners responsible for achievement and badge checks implement ShouldQueue, en
    cd loyalty-program
    ```
 
-2. Install dependencies:
+2. Environment configuration:
    ```bash
+   cp .env.example .env
+   # Open .env and set your preferred APP_PORT (default is 8000)
+   ```
+
+3. Build and start the containers:
+   ```bash
+   docker-compose up -d --build
+   ```
+
+4. The application handles migrations and seeding automatically upon startup. You can access the API at `http://localhost:8000` (or your configured `APP_PORT`).
+
+#### Running Tests with Docker
+```bash
+docker exec -it loyalty_backend php artisan test
+```
+
+---
+
+### Local Installation (Without Docker)
+
+#### Prerequisites
+- PHP 8.2 or higher
+- Composer
+- SQLite
+
+#### Installation
+
+1. Clone and install dependencies:
+   ```bash
+   git clone https://github.com/horlerdipo/loyalty-reward
+   cd loyalty-program
    composer install
    ```
 
-3. Environment configuration:
+2. Environment configuration:
    ```bash
    cp .env.example .env
    php artisan key:generate
    ```
 
-4. Database Setup:
+3. Database Setup:
    ```bash
    touch database/database.sqlite
    php artisan migrate
@@ -78,7 +112,7 @@ Listeners responsible for achievement and badge checks implement ShouldQueue, en
    php artisan db:seed --class=BadgeSeeder
    ```
 
-5. Start the application:
+4. Start the application:
    ```bash
    php artisan serve
    ```
