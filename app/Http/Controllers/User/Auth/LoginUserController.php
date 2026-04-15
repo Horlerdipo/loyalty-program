@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\V1\User\Auth;
+namespace App\Http\Controllers\User\Auth;
 
 use App\Actions\User\Auth\LoginUser;
 use App\DTOs\User\Auth\LoginUserDto;
 use App\Exceptions\DtoValidationErrorException;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\V1\User\Auth\LoginUserRequest;
+use App\Http\Requests\User\Auth\LoginUserRequest;
 use Symfony\Component\HttpFoundation\Response;
 
 class LoginUserController extends Controller

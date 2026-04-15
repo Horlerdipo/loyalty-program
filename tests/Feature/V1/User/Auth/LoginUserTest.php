@@ -21,11 +21,11 @@ it('logins a user in successfully', function () {
     ];
 
     // Act:
-    $response = $this->postJson('/api/v1/auth/login', $data);
+    $response = $this->postJson('/api/auth/login', $data);
 
     // Assert:
-    expect($response)->assertStatus(200);
-    expect($response->json()['auth_details']['token'])->not->toBeNull();
+    expect($response)->assertStatus(200)
+        ->and($response->json()['auth_details']['token'])->not->toBeNull();
 });
 
 it('returns an error when the password is invalid', function () {
@@ -36,11 +36,11 @@ it('returns an error when the password is invalid', function () {
     ];
 
     // Act:
-    $response = $this->postJson('/api/v1/auth/login', $data);
+    $response = $this->postJson('/api/auth/login', $data);
 
     // Assert:
-    expect($response)->assertStatus(400);
-    expect($response->json()['message'])->toBe('The provided credentials are incorrect.');
+    expect($response)->assertStatus(400)
+        ->and($response->json()['message'])->toBe('The provided credentials are incorrect.');
 });
 
 it('returns an error when the email is invalid', function () {
@@ -51,7 +51,7 @@ it('returns an error when the email is invalid', function () {
     ];
 
     // Act:
-    $response = $this->postJson('/api/v1/auth/login', $data);
+    $response = $this->postJson('/api/auth/login', $data);
 
     // Assert:
     expect($response)->assertJsonValidationErrors(['email']);
@@ -65,7 +65,7 @@ it('prevents logging in with invalid credentials', function () {
     ];
 
     // Act:
-    $response = $this->postJson('/api/v1/auth/login', $data);
+    $response = $this->postJson('/api/auth/login', $data);
 
     // Assert:
     expect($response)->assertJsonValidationErrors(['password', 'email']);

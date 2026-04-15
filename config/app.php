@@ -125,6 +125,6 @@ return [
 
     'loyalty_program' => [
         'active' => env('LOYALTY_PROGRAM_ACTIVE', true),
-        'cashback_paid_per_badge' => env('CASHBACK_PAID_PER_BADGE', 300),
+        'cashback_paid_per_badge' => floatval(env('CASHBACK_PAID_PER_BADGE', 300)),
     ],
 ];

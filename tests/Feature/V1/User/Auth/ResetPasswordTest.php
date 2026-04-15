@@ -29,7 +29,7 @@ describe('Forgot password', function () {
         ];
 
         // Act:
-        $response = $this->postJson('/api/v1/auth/password/forgot', $data);
+        $response = $this->postJson('/api/auth/password/forgot', $data);
         expect($response)->assertStatus(204);
     });
 
@@ -40,7 +40,7 @@ describe('Forgot password', function () {
         ];
 
         // Act:
-        $response = $this->postJson('/api/v1/auth/password/forgot', $data);
+        $response = $this->postJson('/api/auth/password/forgot', $data);
         expect($response)->assertJsonValidationErrors(['email']);
     });
 
@@ -51,7 +51,7 @@ describe('Forgot password', function () {
         ];
 
         // Act:
-        $response = $this->postJson('/api/v1/auth/password/forgot', $data);
+        $response = $this->postJson('/api/auth/password/forgot', $data);
         expect($response)->assertJsonValidationErrors(['email']);
     });
 });
@@ -62,7 +62,7 @@ describe('Reset password', function () {
             ->with($this->user->email, OtpPurpose::FORGOT_PASSWORD->value, 'wrong-thing')
             ->andReturn(new VerifyOtpResponse(status: false, message: 'This OTP is incorrect'));
 
-        $response = $this->postJson('/api/v1/auth/password/reset', [
+        $response = $this->postJson('/api/auth/password/reset', [
             'email' => $this->user->email,
             'token' => 'wrong-thing',
             'password' => 'new-password',
@@ -78,7 +78,7 @@ describe('Reset password', function () {
             ->with($this->user->email, OtpPurpose::FORGOT_PASSWORD->value, '123456')
             ->andReturn(new VerifyOtpResponse(status: true, message: 'Password Reset!'));
 
-        $response = $this->postJson('/api/v1/auth/password/reset', [
+        $response = $this->postJson('/api/auth/password/reset', [
             'email' => $this->user->email,
             'token' => '123456',
             'password' => 'new-password',

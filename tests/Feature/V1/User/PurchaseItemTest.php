@@ -16,7 +16,7 @@ beforeEach(function () {
 it('purchases an item successfully', function () {
 
     $response = $this->actingAs($this->user, 'sanctum')
-        ->postJson('/api/v1/purchase', [
+        ->postJson('/api/purchase', [
             'amount' => $this->amount,
         ]);
 
@@ -33,7 +33,7 @@ it('purchases an item successfully', function () {
 });
 
 it('returns unauthenticated error when no user is attached', function () {
-    $response = $this->postJson('/api/v1/purchase', [
+    $response = $this->postJson('/api/purchase', [
         'amount' => $this->amount,
     ]);
     expect($response)->assertStatus(401);
@@ -41,7 +41,7 @@ it('returns unauthenticated error when no user is attached', function () {
 
 it('returns validation error when no amount is provided', function () {
     $response = $this->actingAs($this->user, 'sanctum')
-        ->postJson('/api/v1/purchase');
+        ->postJson('/api/purchase');
 
     expect($response)->assertJsonValidationErrors(['amount']);
     $this->assertDatabaseMissing('purchases', [
@@ -52,7 +52,7 @@ it('returns validation error when no amount is provided', function () {
 
 it('returns validation error when no amount is not numeric', function () {
     $response = $this->actingAs($this->user, 'sanctum')
-        ->postJson('/api/v1/purchase', [
+        ->postJson('/api/purchase', [
             'amount' => 'string',
         ]);
 
@@ -65,7 +65,7 @@ it('returns validation error when no amount is not numeric', function () {
 
 it('returns validation error when no amount is less than 1', function () {
     $response = $this->actingAs($this->user, 'sanctum')
-        ->postJson('/api/v1/purchase', [
+        ->postJson('/api/purchase', [
             'amount' => 0.116,
         ]);
 

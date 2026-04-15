@@ -1,11 +1,12 @@
 <?php
 
-use App\Http\Controllers\V1\User\Auth\ForgotPasswordController;
-use App\Http\Controllers\V1\User\Auth\LoginUserController;
-use App\Http\Controllers\V1\User\Auth\LogoutUserController;
-use App\Http\Controllers\V1\User\Auth\RegisterUserController;
-use App\Http\Controllers\V1\User\Auth\ResetPasswordController;
-use App\Http\Controllers\V1\User\PurchaseItemController;
+use App\Http\Controllers\User\Auth\ForgotPasswordController;
+use App\Http\Controllers\User\Auth\LoginUserController;
+use App\Http\Controllers\User\Auth\LogoutUserController;
+use App\Http\Controllers\User\Auth\RegisterUserController;
+use App\Http\Controllers\User\Auth\ResetPasswordController;
+use App\Http\Controllers\User\FetchLoyaltyRewardDetailsController;
+use App\Http\Controllers\User\PurchaseItemController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -34,4 +35,5 @@ Route::prefix('auth')->as('auth:')->group(function () {
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('purchase', PurchaseItemController::class)->name('purchase');
+    Route::get('users/{id}/achievements', FetchLoyaltyRewardDetailsController::class)->name('achievements');
 });

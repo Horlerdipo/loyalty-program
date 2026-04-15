@@ -11,12 +11,12 @@ beforeEach(function () {
 
 it('logs out successfully', function () {
     $response = $this->actingAs($this->user, 'sanctum')
-        ->postJson('/api/v1/auth/logout');
+        ->postJson('/api/auth/logout');
 
     expect($response)->assertStatus(204);
 });
 
 it('returns an error when the user is not logged in', function () {
-    $response = $this->postJson('/api/v1/auth/logout');
+    $response = $this->postJson('/api/auth/logout');
     expect($response)->assertStatus(401);
 });

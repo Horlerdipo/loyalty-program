@@ -10,6 +10,7 @@ use App\Models\Achievement;
 use App\Models\User;
 use App\Models\UserAchievement;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class UnlockAchievements extends BaseAction
 {
@@ -26,7 +27,8 @@ class UnlockAchievements extends BaseAction
                 ->map(fn ($group) => $group->pluck('id'));
 
             $earnedSalesIds = $earnedAchievementIds->get(AchievementType::SALES->value, collect());
-            $earnedRevenueIds = $earnedAchievementIds->get(AchievementType::PRICE->value, collect());
+            $earnedRevenueIds =
+                $earnedAchievementIds->get(AchievementType::PRICE->value, collect());
 
             $now = now()->toDateTimeString();
             $newAchievements = Achievement::query()
@@ -54,6 +56,7 @@ class UnlockAchievements extends BaseAction
                 ->all();
 
             if (empty($newAchievements)) {
+                Log::info('No new achievements unlocked');
                 return $this->successResponse('No new achievements unlocked');
             }
 

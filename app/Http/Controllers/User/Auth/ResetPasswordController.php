@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\V1\User\Auth;
+namespace App\Http\Controllers\User\Auth;
 
 use App\Actions\User\Auth\ResetPassword;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\V1\User\Auth\ResetPasswordRequest;
+use App\Http\Requests\User\Auth\ResetPasswordRequest;
 use Symfony\Component\HttpFoundation\Response;
 
 class ResetPasswordController extends Controller

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\V1\User;
+namespace App\Http\Controllers\User;
 
 use App\Actions\User\PurchaseItem;
 use App\Http\Controllers\Controller;
